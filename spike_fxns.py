@@ -185,9 +185,9 @@ def BriggsDecomposition_Modified(bbp_qcd, depth, window =7,
     Science,367(6479), 791–793. https://doi.org/10.1126/science.aay1790 
     """
     
-    # First apply, 11-point minimum filter
+    # First apply, n-point minimum filter
     bbp_min = ndimage.minimum_filter(bbp_qcd, size=[1,window])
-    # Followed by 11-point maximum filter
+    # Followed by n-point maximum filter
     bbp_filtered = ndimage.maximum_filter(bbp_min, size=[1,window])
 
     # residual "spikes": difference between unfiltered and filtered data (bbl+instrument noise)
@@ -196,6 +196,7 @@ def BriggsDecomposition_Modified(bbp_qcd, depth, window =7,
     residual_spikes = np.where(residual_spikes==0, np.nan, residual_spikes)
 
 
+    
     # Profile noise
     noise_med = np.nanmedian(residual_spikes, axis=1)
 
